@@ -16,12 +16,14 @@ public class Test {
     static int stopCount = 0;
     static double TotalStopStime = 0;
     static int tapcount = 0; 						//Counts how many times finch is tapped
-    
+    static double TimeSeconds;
+    static int Sleep = 100;
     
     public static void main(String[] args) 
     {
+    	TimeSeconds = Duration/1000;
     	//myF.setLED(255,168,0); 					//Test
-        //System.out.println("Connected"); 			//Test 
+/**/	System.out.println("Connected"); 			//Test 
     	TurnSpeed = (((NormSpeed - Turn) / 2) + Turn) ;
     	//System.out.println(TurnSpeed);
     	
@@ -31,7 +33,7 @@ public class Test {
     			if (myF.isTapped() == true) {
     				if (myF.isObstacleLeftSide() == true && myF.isObstacleRightSide() == true) {
     					tapcount = tapcount + 1;
-//    					System.out.print("Test"); //Test
+/**/    					System.out.print("Test"); //Test
     				}
     			}
     		}
@@ -40,10 +42,10 @@ public class Test {
     				tapcount = tapcount + 1;
     			}
     		}
-//			System.out.println(myF.isTapped());		//Test
-//			System.out.println(tapcount);			//Test
+/**/			System.out.println(myF.isTapped());		//Test
+/**/			System.out.println(tapcount);			//Test
 			if (tapcount == 1 || tapcount == 2) { 	
-//		            myF.setLED(0,0,255);				//Test				 
+/**/		            myF.setLED(0,0,255);				//Test				 
 		            Move();
 			}else if (tapcount == 3 || tapcount > 3){
 				myF.quit();							//Disconnects the finch
@@ -101,11 +103,11 @@ public class Test {
         if (myF.isObstacleRightSide() == false && myF.isObstacleLeftSide() == false) { 
             ONWARDS();
         } else if (myF.isObstacleRightSide() == false && myF.isObstacleLeftSide() == true) { 
-            Left();
+            Hidari();
         } else if (myF.isObstacleRightSide() == true && myF.isObstacleLeftSide() == false) { 
-            Right();
+            Migi();
         } else if (myF.isObstacleRightSide() == true && myF.isObstacleLeftSide() == true) { 
-            Stop();
+           CEASE();
         }
     }
 
@@ -114,40 +116,40 @@ public class Test {
         myF.setLED(0,255,0); 	//Green
         myF.buzz(BuzzFeq, Duration); 
         myF.setWheelVelocities(NormSpeed, NormSpeed, Duration); 
-        myF.sleep(100);
+        myF.sleep(Sleep);
         speedAddedStops = speedAddedStops + 1.0; //keeps track of the speed calculation divider
         averageSpeed = averageSpeed + NormSpeed; //adds to the average speed
         travelTime = travelTime + 0.1; //adds to the time travelled counter
     }
 
-    public static void Left() 
+    public static void Hidari() //JPN L
     {
         myF.setLED(0,255,0); 	//Green
         myF.buzz(BuzzFeq, Duration); 
         myF.setWheelVelocities(Turn, NormSpeed, Duration); 
-        myF.sleep(100);
+        myF.sleep(Sleep);
         speedAddedStops = speedAddedStops + 1.0; //keeps track of the speed calculation divider
         averageSpeed = averageSpeed + TurnSpeed; //adds to the average speed
         travelTime = travelTime + 0.1; //adds one second to the time travelled counter
     }
 
-    public static void Right() 
+    public static void Migi() //JPN R
     {
         myF.setLED(0,255,0); 	//Green
         myF.buzz(BuzzFeq, Duration); 
         myF.setWheelVelocities(NormSpeed, Turn, Duration); 
-        myF.sleep(100);
+        myF.sleep(Sleep);
         speedAddedStops = speedAddedStops + 1.0; //keeps track of the speed calculation divider
         averageSpeed = averageSpeed + TurnSpeed; //adds to the average speed
         travelTime = travelTime + 0.1; //adds to the time travelled counter
     }
 
-    public static void Stop() 
+    public static void CEASE() 
     {
         myF.setLED(255,0,0); 	//Red
         myF.buzz(0, Duration); 
         myF.stopWheels(); 
-        myF.sleep(100);
+        myF.sleep(Sleep);
         speedAddedStops = speedAddedStops + 1.0; //keeps track of the speed calculation divider
         TotalStopStime = TotalStopStime + 0.1; //adds one second to the time stopped counter
         stopCount++; //adds one to the amount of times stopped counter
