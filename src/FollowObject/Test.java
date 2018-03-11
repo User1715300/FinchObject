@@ -18,14 +18,14 @@ public class Test {
     static double TimeSeconds;
     static double SleepTime;
     static int Sleep = 1000;
-    static int TapCount= 2; 						//Counts how many times finch is tapped
+    static int TapCount = 0; 						//Counts how many times finch is tapped
     
     public static void main(String[] args) 
     {
     	TimeSeconds = ((Duration + Sleep)/1000);
     	SleepTime =  Sleep / 1000;
-/**/    myF.setLED(255,168,0); 						//Test
-/**/	System.out.println("Connected"); 			//Test 
+//    	myF.setLED(255,168,0); 						//Test
+//		System.out.println("Connected"); 			//Test 
     	TurnSpeed = (((NormSpeed - Turn) / 2) + Turn);
     	
     	while (myF.isFinchUpsideDown() == false){
@@ -34,16 +34,16 @@ public class Test {
     			if (myF.isTapped() == true) {
     				if (myF.isObstacleLeftSide() == true && myF.isObstacleRightSide() == true) {
     					TapCount= TapCount+ 1;
-/**/    				System.out.print("Test"); 	//Test
+//	    				System.out.print("Test"); 	//Test
     		}}}    		
     		if (TapCount> 0){
     			if (myF.isTapped() == true) {
     				TapCount= TapCount+ 1;
     		}}
-/**/			System.out.println(myF.isTapped());	//Test
-/**/			System.out.println(TapCount);		//Test
+//				System.out.println(myF.isTapped());	//Test
+//				System.out.println(TapCount);		//Test
 			if (TapCount== 1 || TapCount== 2) { 	
-/**/		            myF.setLED(0,0,255);		//Test				 
+//		            myF.setLED(0,0,255);			//Test				 
 		            Move();
 			}else if (TapCount== 3 || TapCount> 3){
 				myF.quit();							//Disconnects the finch
@@ -60,16 +60,14 @@ public class Test {
         String YorN = input.nextLine();
         switch (YorN) { 							//allows the user to choose to view statistical results or not
             case "y":
-            	
             	double StopTimeRound = Math.round(StopTime * 100)/100.0;
             	double Sped = Math.round((AverageSpeed / SpeedAddedStops)* 100)/100.0;
-            	
                 System.out.println("The available statistical results are average speed(1), total travel time(2), number of stops(3), and total time stopped(4).");
                 System.out.println("Please enter the indicated number in brackets to the statistic result, or enter 'all' to view all of them");
                 Scanner userChoice = new Scanner(System.in);
                 String StatSelect = input.nextLine();
                 switch (StatSelect) { 				//User picks stats to view
-                    case "1": //AverageSpeed
+                    case "1": 
                         System.out.println("The average speed was " + Sped + ".");
                         break;
                     case "2": 
@@ -156,5 +154,4 @@ public class Test {
         StopTime = StopTime + 0.1;		 			//adds one second to the time stopped counter
         StopCount = StopCount +1; 					//adds one to the amount of times stopped counter
     }
-	
 }
